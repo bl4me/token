@@ -1,6 +1,26 @@
-import "oaidl.idl";
-import "ocidl.idl";
+import "Windows.Foundation.idl";
 import "inspectable.idl";
+import "AsyncInfo.idl";
+import "EventToken.idl";
+import "windowscontracts.idl";
+import "Windows.Foundation.idl";
+import "Windows.Security.Credentials.idl";
+import "Windows.System.idl";
+
+//
+// https://learn.microsoft.com/en-us/cpp/cppcx/wrl/use-winmdidl-and-midlrt-to-create-h-files-from-windows-metadata?view=msvc-170
+// https://learn.microsoft.com/en-us/archive/msdn-magazine/2015/july/windows-with-c-windows-runtime-components
+// https://learn.microsoft.com/en-us/archive/msdn-magazine/2015/august/windows-with-c-windows-runtime-components-with-midl
+// https://stackoverflow.com/questions/56823779/how-to-use-midlrt-exe-to-compile-idl-to-winmd
+// /winrt
+// https://github.com/abdul202030/cpp-docs/blob/fdd0a2ebdbc5273ee19c683c0e9360688fb91e84/docs/cppcx/codesnippet/CPP/wrl-class-library-project-template_1.idl#L5
+
+//
+// I:\token\Project1\Project1>midl.exe /winrt   TokenBrokerIntenal.idl  /metadata_dir "C:\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.FoundationContract\4.0.0.0"  /nologo /out "I:\token\Project1\Project1"
+//
+namespace Sample
+{
+
 
 [version(1)]
 [uuid(07650a66-66ea-489d-aa90-0dabc75f3567)]
@@ -11,8 +31,18 @@ interface ITokenBrokerInternalStatics : IInspectable {
 	HRESULT filler_FindAccount();
 	HRESULT filler_FindAccountForApp();
 	HRESULT filler_FindAccountForProvider();
-
-	HRESULT FindAllAccountsAsync();
+	// HRESULT Proc12(/* Stack Offset: 8 */ [Out] IAsyncOperation<IVectorView<Windows::Security::Credentials::WebAccount>>** p0);
+	// Windows::Internal::Security::Authentication::Web::CTokenBrokerInternalFactory::FindAllAccountsAsync(Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVectorView<Windows::Security::Credentials::WebAccount *> *> * *)
+	HRESULT FindAllAccountsAsync([in] Windows.Security.Credentials.WebAccountProvider* provider,
+		[out][retval] Windows.Security.Authentication.Web.Core.FindAllAccountsResult** operation);
 }
 
+[version(1)]
+[activatable(1)]
+runtimeclass TokenBrokerInternalStatics
+{
+  [default] interface ITokenBrokerInternalStatics;
+}
+
+}
 

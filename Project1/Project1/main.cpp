@@ -5,15 +5,18 @@
 #include <combaseapi.h>
 #include <roapi.h>
 
-#include "TokenBrokerIntenal_h.h"
+#include <Windows.Foundation.h>
 
 #include <webauthenticationcoremanagerinterop.h>
 
+#include "TokenBrokerIntenal_p.h"
+
+
+
+
 //
 // https://learn.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/interop-winrt-abi
-//
-#include <winrt/Windows.Foundation.h>
-
+// /mnt/c/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt
 
 #pragma comment(lib, "WindowsApp.lib")
 //

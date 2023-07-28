@@ -24,4 +24,9 @@
       <Filter>Source Files</Filter>
     </Midl>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TokenBrokerIntenal_p.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
