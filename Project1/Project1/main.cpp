@@ -7,6 +7,14 @@
 
 #include "TokenBrokerIntenal_h.h"
 
+#include <webauthenticationcoremanagerinterop.h>
+
+//
+// https://learn.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/interop-winrt-abi
+//
+#include <winrt/Windows.Foundation.h>
+
+
 #pragma comment(lib, "WindowsApp.lib")
 //
 //
@@ -56,6 +64,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	_tprintf(_T("[*] tokenBrokerInternalStatics: %p\n"), tokenBrokerInternalStatics);
+
+	//IAsyncOperation
 
 	/*
 	hr = CoSetProxyBlanket()
