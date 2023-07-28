@@ -1,0 +1,18 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "inspectable.idl";
+
+[version(1)]
+[uuid(07650a66-66ea-489d-aa90-0dabc75f3567)]
+interface ITokenBrokerInternalStatics : IInspectable {
+	HRESULT filler_GetTokenSilently();
+	HRESULT filler_GetSecureInputParameters();
+	HRESULT filler_ReportBackgroundCompletion();
+	HRESULT filler_FindAccount();
+	HRESULT filler_FindAccountForApp();
+	HRESULT filler_FindAccountForProvider();
+
+	HRESULT FindAllAccountsAsync();
+}
+
+
