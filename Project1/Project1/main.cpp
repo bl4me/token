@@ -56,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		Res = FALSE;
 		goto end;
 	}
-	ITokenBrokerInternalStatics * tokenBrokerInternalStatics;
+	__x_ABI_CSample_CITokenBrokerInternalStatics* tokenBrokerInternalStatics;
 
 	hr = RoGetActivationFactory(acidString, IID_ITokenBrokerInternalStatics, (void **)&tokenBrokerInternalStatics);
 	if (FAILED(hr))
