@@ -25,7 +25,7 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TokenBrokerIntenal_p.h">
+    <ClInclude Include="TokenBrokerIntenal_h.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

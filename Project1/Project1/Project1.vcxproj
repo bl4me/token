@@ -141,7 +141,8 @@
     </Link>
     <Midl>
       <EnableWindowsRuntime>true</EnableWindowsRuntime>
-      <AdditionalMetadataDirectories>C:\Windows\System32\WinMetadata;%(AdditionalMetadataDirectories)</AdditionalMetadataDirectories>
+      <AdditionalMetadataDirectories>C:\Program Files %28x86%29\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.FoundationContract\4.0.0.0;%(AdditionalMetadataDirectories)</AdditionalMetadataDirectories>
+      <PrependWithABINamepsace>true</PrependWithABINamepsace>
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -151,7 +152,7 @@
     <Midl Include="TokenBrokerIntenal.idl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TokenBrokerIntenal_p.h" />
+    <ClInclude Include="TokenBrokerIntenal_h.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
