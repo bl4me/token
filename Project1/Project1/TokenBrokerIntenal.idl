@@ -6,6 +6,8 @@ import "windowscontracts.idl";
 import "Windows.Foundation.idl";
 import "Windows.Security.Credentials.idl";
 import "Windows.System.idl";
+import "windows.security.authentication.web.core.idl";
+import "windows.security.authentication.web.provider.idl";
 
 //
 // https://learn.microsoft.com/en-us/cpp/cppcx/wrl/use-winmdidl-and-midlrt-to-create-h-files-from-windows-metadata?view=msvc-170
@@ -33,7 +35,39 @@ interface ITokenBrokerInternalStatics : IInspectable {
 	HRESULT filler_FindAccountForProvider();
 	// HRESULT Proc12(/* Stack Offset: 8 */ [Out] IAsyncOperation<IVectorView<Windows::Security::Credentials::WebAccount>>** p0);
 	// Windows::Internal::Security::Authentication::Web::CTokenBrokerInternalFactory::FindAllAccountsAsync(Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVectorView<Windows::Security::Credentials::WebAccount *> *> * *)
-	HRESULT FindAllAccountsAsync([out][retval] Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.Core.FindAllAccountsResult*> ** operation);
+	HRESULT FindAllAccountsAsync([out][retval] Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.Core.FindAllAccountsResult*>** operation);
+
+	HRESULT filler_0();
+	HRESULT filler_1();
+	HRESULT filler_2();
+	HRESULT filler_3();
+	HRESULT filler_4();
+	HRESULT filler_5();
+	HRESULT filler_6();
+	HRESULT filler_7();
+	HRESULT filler_8();
+	HRESULT filler_9();
+	HRESULT filler_10();
+	HRESULT filler_11();
+	HRESULT filler_12();
+	HRESULT filler_13();
+	HRESULT filler_14();
+	HRESULT filler_15();
+	HRESULT filler_16();
+	HRESULT filler_17();
+	HRESULT filler_18();
+	HRESULT filler_19();
+	HRESULT filler_20();
+	HRESULT filler_21();
+	HRESULT filler_22();
+	//HRESULT filler_23();
+
+
+	// Windows::Internal::Security::Authentication::Web::CTokenBrokerInternalFactory::RequestTokenAsync(Windows::Security::Authentication::Web::Core::IWebTokenRequest*, Windows::Foundation::Collections::IVectorView<Windows::Security::Credentials::WebAccount*> *, uint, Windows::Foundation::IAsyncOperation<Windows::Security::Authentication::Web::Core::WebTokenRequestResult*> **)
+	HRESULT RequestTokenAsync([in] Windows.Security.Authentication.Web.Core.WebTokenRequest* request,
+		[in] Windows.Foundation.Collections.IVectorView<Windows.Security.Credentials.WebAccount*>* thein,
+		unsigned int theuint,
+		[out][retval] Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.Core.WebTokenRequestResult*>** theout);
 }
 
 [version(1)]

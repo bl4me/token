@@ -236,6 +236,107 @@ int _tmain(int argc, _TCHAR* argv[])
 		_tprintf(_T("[*] wuserName: %ws\n"), wuserName);
 	}
 
+	//
+	//
+	//
+	
+	hr = WindowsCreateStringReference(L"Windows.Security.Authentication.Web.Core.WebTokenRequest", wcslen(L"Windows.Security.Authentication.Web.Core.WebTokenRequest"), &headerAcidString, &acidString);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with WindowsCreateStringReference: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+	
+
+	
+	IID IID_IWebTokenRequestFactory;
+	hr = IIDFromString(L"{6cf2141c-0ff0-4c67-b84f-99ddbe4a72c9}", &IID_IWebTokenRequestFactory);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with IIDFromString: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+	ABI::Windows::Security::Authentication::Web::Core::IWebTokenRequestFactory * webTokenRequestFactory;
+
+	hr = RoGetActivationFactory(acidString, IID_IWebTokenRequestFactory, (void**)&webTokenRequestFactory);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with RoGetActivationFactory: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+
+	ABI::Windows::Security::Credentials::IWebAccountProvider * webAccountProvider;
+	webAccount->get_WebAccountProvider(&webAccountProvider);
+
+	
+	hr = WindowsCreateStringReference(L"https://officeapps.live.com", wcslen(L"https://officeapps.live.com"), &headerAcidString, &acidString);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with WindowsCreateStringReference: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+
+	ABI::Windows::Security::Authentication::Web::Core::IWebTokenRequest* webTokenRequest;
+	hr = webTokenRequestFactory->CreateWithScope(webAccountProvider, acidString, &webTokenRequest);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with WindowsCreateStringReference: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+
+	ABI::Windows::Foundation::IAsyncOperation < ABI::Windows::Security::Authentication::Web::Core::WebTokenRequestResult *>* webTokenRequestResultAsync;
+	//__debugbreak();
+	hr = tokenBrokerInternalStatics->RequestTokenAsync(webTokenRequest, webAccounts, 1, &webTokenRequestResultAsync);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with RequestTokenAsync: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+
+	ABI::Windows::Security::Authentication::Web::Core::IWebTokenRequestResult * webTokenRequestResult;
+	while (TRUE)
+	{
+		//
+		// https://devblogs.microsoft.com/oldnewthing/20230724-00/?p=108477
+
+		hr = webTokenRequestResultAsync->GetResults(&webTokenRequestResult);
+		if (FAILED(hr))
+		{
+			_ftprintf(stderr, _T("[-] %hs - Error with GetResults: 0x%x\n"), __FUNCTION__, hr);
+			Res = FALSE;
+			//goto end;
+		}
+		else
+		{
+			_tprintf(_T("[*] GetResults: 0x%x\n"), hr);
+			break;
+		}
+
+		_tprintf(_T("[*] Sleep\n"));
+		Sleep(1 * 2000);
+	}
+
+	_tprintf(_T("[*] webTokenRequestResult: %p\n"), webTokenRequestResult);
+
+
+	ABI::Windows::Security::Authentication::Web::Core::WebTokenRequestStatus webTokenRequestStatus;
+	hr = webTokenRequestResult->get_ResponseStatus(&webTokenRequestStatus);
+	if (FAILED(hr))
+	{
+		_ftprintf(stderr, _T("[-] %hs - Error with get_ResponseStatus: 0x%x\n"), __FUNCTION__, hr);
+		Res = FALSE;
+		goto end;
+	}
+
+	_tprintf(_T("[*] webTokenRequestStatus: 0x%x\n"), webTokenRequestStatus);
+
+	Sleep(10 * 1000);
 end:
 	if (acidString != NULL)
 		WindowsDeleteString(acidString);
